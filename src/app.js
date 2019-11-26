@@ -3,7 +3,7 @@ const app = express();
 const cors = require('cors');
 
 //settings
-app.set('port', 3000);
+app.set('port', process.env.PORT || 3000);
 
 //middlewares
 app.use(cors());
@@ -11,6 +11,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended:false}))
 
 //routes
-app.use('/', (req, res) => res.json({message: 'mortal'}))
+app.use('/api/productos', require('./routes/productos'));
+app.use('/api/clientes', require('./routes/clientes'));
+app.use('/api/usuarios', require('./routes/usuarios'));
 
 module.exports = app;
