@@ -21,5 +21,7 @@ app.use('/api/ordenes', require('./routes/ordenes'));
 app.use('/api/detalles-orden', require('./routes/detallesOrden'));
 app.use('/api/cajas', require('./routes/cajas'));
 app.use('/api/mesas', require('./routes/mesas'));
+app.use('/api/formas-pago', require('./routes/formasPago'));
+app.use('/api/estados', require('./routes/estados'));
 
 module.exports = app;
