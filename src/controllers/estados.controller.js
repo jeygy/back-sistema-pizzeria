@@ -1,8 +1,10 @@
 const estadoCtrl = {};
+const { Estado } = require('../database');
 
 estadoCtrl.getEstados = async (req, res) => {
     try {
-        res.status(200).json({message:"GET estados"});
+        const lstEstados = await Estado.findAll();
+        res.status(200).json(lstEstados);
     } catch (error) {
         res.json({message:error});
     }
@@ -10,7 +12,9 @@ estadoCtrl.getEstados = async (req, res) => {
 
 estadoCtrl.createEstado = async (req, res) => {
     try {
-        res.status(201).json({message:"CREATE estado"});
+        const nuevoEstado = req.body;
+        const estadoCreado = await Estado.findAll(nuevoEstado);
+        res.status(201).json(estadoCreado);
     } catch (error) {
         res.json({message:error});
     }

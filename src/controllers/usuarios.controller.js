@@ -1,8 +1,10 @@
 const usaurioCtrl = {};
+const { Usuario } = require('../database');
 
 usaurioCtrl.getUsuarios = async (req, res) => {
     try {
-        res.status(200).json({message:"GET Usuarios"});
+        const lstUsuarios = await Usuario.findAll();
+        res.status(200).json(lstUsuarios);
     } catch (error) {
         res.json({message:error});
     }
