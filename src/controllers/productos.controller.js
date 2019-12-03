@@ -1,42 +1,70 @@
 const productoCtrl = {};
+const { Producto } = require('../database');
 
 productoCtrl.getProductos = async (req, res) => {
     try {
-        res.status(200).json({message:"GET Productos"});
+        const lstProductos = await Producto.findAll();
+        res.status(200).json(lstProductos);
     } catch (error) {
-        res.json({message:error});
+        res.json({ message: error });
     }
 }
 
 productoCtrl.createProducto = async (req, res) => {
     try {
-        res.status(201).json({message:"POST Producto"})
+        const productoNuevo = req.body;
+        const productoCreado = await Producto.create(productoNuevo);
+        res.status(201).json(productoCreado);
     } catch (error) {
-        res.json({message:error});
+        res.json({ message: error });
     }
 }
 
 productoCtrl.getProductoById = async (req, res) => {
     try {
-        res.status(200).json({message:"GET Producto por id"});
+        const idProducto = req.params.id;
+        const producto = await Producto.findOne({ where: { id: idProducto } });
+        if (producto) {
+            res.status(200).json(producto);
+        } else {
+            res.status(404).json({ message: `No existe ningun producto con id: ${idProducto}` });
+        }
     } catch (error) {
-        res.json({message:error});
+        res.json({ message: error });
     }
 }
 
 productoCtrl.updateProducto = async (req, res) => {
     try {
-        res.status(201).json({message:"PUT Producto"});
+        const idProducto = req.params.id;
+        const nuevosDatos = req.body;
+        const producto = await Producto.findOne({ where: { id: idProducto } });
+
+        if (producto) {
+            const prodModificado = await producto.update(nuevosDatos);
+            res.status(200).json(prodModificado);
+        } else {
+            res.status(404).json({ message: `No existe ningun producto con id: ${idProducto}` });
+        }
     } catch (error) {
-        res.json({message:error});
+        res.json({ message: error });
     }
 }
 
 productoCtrl.deleteProducto = async (req, res) => {
     try {
-        res.status(200).json({message:"Delete Producto"})
+
+        const idProducto = req.params.id;
+        const prodEliminado = await Producto.destroy({ where: { id: idProducto } });
+
+        if (prodEliminado) {
+            res.status(200).json({ message: "Producto Eliminado" });
+        } else {
+            res.status(404).json({ message: `No existe ningun producto con id: ${idProducto}` });
+        }
+
     } catch (error) {
-        res.json({message:error});
+        res.json({ message: error });
     }
 }
 
