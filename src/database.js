@@ -17,7 +17,15 @@ const DetalleOrdenModel = require('./models/DetallesOrden');
 const DB_URL = 'mysql://usuarionuevo:Focaccia1@localhost:3306/focacciadbmysql';
 
 // instancia de BD
-const sequelize = new Sequelize(DB_URL);
+const sequelize = new Sequelize('DB_FOCACCIA', 'GastoN', 'leonino13', {
+    dialect: 'mssql',
+    dialectOptions: {
+      options: {
+        useUTC: false,
+        dateFirst: 1,
+      }
+    }
+  });
 
 // Importo los modelos
 const Producto = ProductoModel(sequelize, Sequelize);
