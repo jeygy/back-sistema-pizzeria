@@ -18,7 +18,15 @@ const UnidadMedidaModel = require('./models/UnidadesMedida');
 const DB_URL = process.env.DB_URL;
 
 // instancia de BD
-const sequelize = new Sequelize(DB_URL);
+const sequelize = new Sequelize('DB_FOCACCIA', 'GastoN', 'leonino13', {
+    dialect: 'mssql',
+    dialectOptions: {
+      options: {
+        useUTC: false,
+        dateFirst: 1,
+      }
+    }
+  });
 
 // Importo los modelos
 const Producto = ProductoModel(sequelize, Sequelize);
