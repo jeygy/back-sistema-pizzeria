@@ -1,5 +1,6 @@
 const usaurioCtrl = {};
 const { Usuario } = require('../database');
+const bcrypt = require('bcryptjs');
 
 usaurioCtrl.getUsuarios = async (req, res) => {
     try {
@@ -12,11 +13,14 @@ usaurioCtrl.getUsuarios = async (req, res) => {
 
 usaurioCtrl.createUsuario = async (req, res) => {
     try {
-        const usuarioNuevo = req.body;
-        const usuarioCreado = await Usuario.create(usuarioNuevo);
+
+        let { nombre, pass, rolId} = req.body;
+        pass = bcrypt.hashSync(pass, 10);
+
+        const usuarioCreado = await Usuario.create({ nombre, pass, rolId });
         res.status(201).json(usuarioCreado);
     } catch (error) {
-        res.json({ message: error })
+        res.json({ message: error.message })
     }
 }
 
@@ -37,7 +41,12 @@ usaurioCtrl.getUsuarioById = async (req, res) => {
 usaurioCtrl.updateUsuario = async (req, res) => {
     try {
         const idUsuario = req.params.id;
-        const datosNuevos = req.body;
+
+        let { nombre, pass, rolId} = req.body;
+        pass = bcrypt.hashSync(pass, 10);
+
+        const datosNuevos = { nombre, pass, rolId};
+        
         const usuario = await Usuario.findOne({ where: { id: idUsuario } });
         if (usuario) {
             const usuarioModificado = await usuario.update(datosNuevos);

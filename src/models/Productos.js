@@ -4,7 +4,9 @@ module.exports = (sequelize, DataTypes) => {
         nombre:{type:DataTypes.STRING, allowNull:false, validate:{notEmpty:true}},
         precio:{type:DataTypes.DECIMAL, alloNull:false, validate:{notEmpty:true}},
         descripcion:{type:DataTypes.STRING},
-        stock:{type:DataTypes.DECIMAL}
+        stock:{type:DataTypes.DECIMAL},
+        contarStock:{type:DataTypes.BOOLEAN},
+        solicitado:{type:DataTypes.BOOLEAN}
     });
     return Producto;
 }

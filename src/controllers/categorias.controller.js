@@ -4,7 +4,7 @@ const { Categoria } = require('../database');
 categoriaCtrl.getCategorias = async (req, res) => {
     try {
         const lstCategorias = await Categoria.findAll();
-        res.status(200).json({lstCategorias});
+        res.status(200).json(lstCategorias);
     } catch (error) {
         res.json({message:error});
     }
