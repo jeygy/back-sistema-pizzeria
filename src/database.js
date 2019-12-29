@@ -12,9 +12,10 @@ const CajaModel = require('./models/Cajas');
 const FormaPagoModel = require('./models/FormasPago');
 const OrdenModel = require('./models/Ordenes');
 const DetalleOrdenModel = require('./models/DetallesOrden');
+const UnidadMedidaModel = require('./models/UnidadesMedida');
 
 // cadena de conexion
-const DB_URL = 'mysql://usuarionuevo:Focaccia1@localhost:3306/focacciadbmysql';
+const DB_URL = process.env.DB_URL;
 
 // instancia de BD
 const sequelize = new Sequelize('DB_FOCACCIA', 'GastoN', 'leonino13', {
@@ -40,6 +41,7 @@ const Caja = CajaModel(sequelize, Sequelize);
 const FormaPago = FormaPagoModel(sequelize,Sequelize);
 const Orden = OrdenModel(sequelize, Sequelize);
 const DetalleOrden = DetalleOrdenModel(sequelize, Sequelize);
+const UnidadMedida = UnidadMedidaModel(sequelize, Sequelize);
 
 // Establezco las relaciones
 // Relacion 1 a muchos 
@@ -48,6 +50,9 @@ Usuario.belongsTo(Rol);
 
 Categoria.hasMany(Producto);
 Producto.belongsTo(Categoria);
+
+UnidadMedida.hasMany(Producto);
+Producto.belongsTo(UnidadMedida);
 
 Cliente.hasMany(Domicilio);
 Domicilio.belongsTo(Cliente);
@@ -58,8 +63,8 @@ Orden.belongsTo(Estado);
 Domicilio.hasMany(Orden);
 Orden.belongsTo(Domicilio);
 
-Caja.hasMany(Usuario);
-Usuario.belongsTo(Caja);
+Usuario.hasMany(Caja);
+Caja.belongsTo(Usuario);
 
 Mesa.hasMany(Orden);
 Orden.belongsTo(Mesa);
@@ -96,5 +101,6 @@ module.exports = {
     Caja,
     FormaPago,
     Orden,
-    DetalleOrden
+    DetalleOrden,
+    UnidadMedida
 };

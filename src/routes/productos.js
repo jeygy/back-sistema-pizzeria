@@ -2,7 +2,7 @@ const Router = require('express');
 const router = Router();
 const { getProductos, getProductoById, 
         createProducto, updateProducto, 
-        deleteProducto } = require('./../controllers/productos.controller');
+        deleteProducto, getProductoConsumible } = require('./../controllers/productos.controller');
 
 router.route('/')
     .get(getProductos)
@@ -12,5 +12,8 @@ router.route('/:id')
     .get(getProductoById)
     .put(updateProducto)
     .delete(deleteProducto);
+
+router.route('/consumibles/1')
+    .get(getProductoConsumible)
 
 module.exports = router;
