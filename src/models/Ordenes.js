@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
         id:{type:DataTypes.SMALLINT, primaryKey: true, autoIncrement: true},
         total:{type:DataTypes.DECIMAL, alloNull:false, validate:{notEmpty:true}},
         observacion:{type:DataTypes.STRING},
-        fechaHora:{type:DataTypes.DATE, defaultValue: DataTypes.fn('getdate')},
+        fechaHora:{type:DataTypes.DATE, defaultValue: DataTypes.fn('NOW')},
         tipoOrden:{type:DataTypes.STRING}
     });
     return Orden;
