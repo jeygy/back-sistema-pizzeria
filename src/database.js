@@ -17,16 +17,19 @@ const UnidadMedidaModel = require('./models/UnidadesMedida');
 // cadena de conexion
 const DB_URL = process.env.DB_URL;
 
-// instancia de BD
-const sequelize = new Sequelize('DB_FOCACCIA', 'GastoN', 'leonino13', {
-    dialect: 'mssql',
-    dialectOptions: {
-      options: {
-        useUTC: false,
-        dateFirst: 1,
-      }
-    }
-  });
+// instancia de BD MySQL
+const sequelize = new Sequelize(DB_URL);
+
+// instancia de BD SQL Server
+// const sequelize = new Sequelize('DB_FOCACCIA', 'GastoN', 'leonino13', {
+//     dialect: 'mssql',
+//     dialectOptions: {
+//       options: {
+//         useUTC: false,
+//         dateFirst: 1,
+//       }
+//     }
+//   });
 
 // Importo los modelos
 const Producto = ProductoModel(sequelize, Sequelize);
@@ -63,8 +66,8 @@ Orden.belongsTo(Estado);
 Domicilio.hasMany(Orden);
 Orden.belongsTo(Domicilio);
 
-Usuario.hasMany(Caja);
-Caja.belongsTo(Usuario);
+Caja.hasMany(Usuario);
+Usuario.belongsTo(Caja);
 
 Mesa.hasMany(Orden);
 Orden.belongsTo(Mesa);

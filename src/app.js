@@ -28,5 +28,6 @@ app.use('/api/cajas', require('./routes/cajas'));
 app.use('/api/mesas', require('./routes/mesas'));
 app.use('/api/formas-pago', require('./routes/formasPago'));
 app.use('/api/unidades-medida',require('./routes/unidadesMedida'));
+app.use('/api/upload', require('./routes/upload'));
 
 module.exports = app;
